@@ -57,18 +57,12 @@ namespace Shapes
                 retIndices[ii] = indices[ii];
                 retIndices[ii + indices.Length] = indices[ii + subCount] + vertLength;
 
-                switch (subCount)
+                subCount = subCount switch
                 {
-                    case 0:
-                        subCount = 1;
-                        break;
-                    case 1:
-                        subCount = -1;
-                        break;
-                    default:
-                        subCount = 0;
-                        break;
-                }
+                    0 => 1,
+                    1 => -1,
+                    _ => 0
+                };
             }
 
             return retIndices;
@@ -128,7 +122,7 @@ namespace Shapes
         public void Draw3DPoly(Vector3[] vertices, int[] indices)
         {
             // https://docs.unity3d.com/ScriptReference/Mesh.html
-            
+
             // Retrieve the mesh
             Mesh sharedMesh = meshFilter.sharedMesh;
 
@@ -192,8 +186,11 @@ namespace Shapes
             }
             else
             {
-                colorAnimator = StartCoroutine(
-                    BlendColorsAnimator(color, animationDuration));
+                if (isActiveAndEnabled)
+                {
+                    colorAnimator = StartCoroutine(
+                        BlendColorsAnimator(color, animationDuration));
+                }
             }
         }
 

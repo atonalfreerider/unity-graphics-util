@@ -4,10 +4,10 @@ namespace Shapes
 {
     public class Rectangle : Polygon
     {
-        // the current width and height of the rectangle;
+        // the current width and height of the rectangle
         public float curW;
         public float curH;
-        
+
         public void DrawRect(float w, float h, float d)
         {
             curH = h;
@@ -15,21 +15,21 @@ namespace Shapes
 
             Vector3[] skinList = new Vector3[4];
 
-            skinList[0] = new Vector3(-w * .5f, 0f, h * .5f);
-            skinList[1] = new Vector3(w * .5f, 0f, h * .5f);
-            skinList[2] = new Vector3(w * .5f, 0f, -h * .5f);
-            skinList[3] = new Vector3(-w * .5f, 0f, -h * .5f);
+            skinList[0] = new Vector3(-w * .5f, 0, h * .5f);
+            skinList[1] = new Vector3(w * .5f, 0, h * .5f);
+            skinList[2] = new Vector3(w * .5f, 0, -h * .5f);
+            skinList[3] = new Vector3(-w * .5f, 0, -h * .5f);
 
-            int[] indList = {0, 1, 2, 0, 2, 3};
+            int[] indList = { 0, 1, 2, 0, 2, 3 };
 
-            if (d < float.Epsilon)
+            if (d <= float.Epsilon)
             {
-                // a rectangle with 0 depth - only draw two sides;
+                // a rectangle with 0 depth - only draw two sides
                 Draw3DPoly(skinList, MirrorIndices(indList, 0));
             }
             else
             {
-                Extrude(skinList, indList, d, false, true, 0f);
+                Extrude(skinList, indList, d, false, true, 0);
             }
         }
     }
